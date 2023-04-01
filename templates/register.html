@@ -24,7 +24,8 @@
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" required>
+                        <small class="form-text" style="color: red;">パスワードは英字と数字を含む6文字以上で入力してください。</small>
+                        <input type="password" class="form-control" id="password" name="password" pattern="^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+){6,}$" required>
                     </div>
                     <div class="mb-3">
                         <label for="password_confirm" class="form-label">Confirm Password</label>
