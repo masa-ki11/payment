@@ -6,7 +6,7 @@ import (
     // "payment/dbutils"
     "github.com/joho/godotenv"
 
-    "gorm.io/driver/mysql"
+    "gorm.io/driver/sqlserver"
 	"gorm.io/gorm"
 )
 
@@ -22,8 +22,8 @@ func Connect() (*gorm.DB, error) {
     port := os.Getenv("DB_PORT")
     database_name := os.Getenv("DB_DATABASE_NAME")
 
-    dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local", user, password, host, port, database_name)
-	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+    dsn := fmt.Sprintf("sqlserver://%s:%s@%s:%s?database=%s&connection+timeout=30", user, password, host, port, database_name)
+	db, err := gorm.Open(sqlserver.Open(dsn), &gorm.Config{})
 
     if err != nil {
 		fmt.Println(err.Error())
