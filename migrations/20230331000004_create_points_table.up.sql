@@ -6,3 +6,4 @@ CREATE TABLE points (
     updated_at DATETIME2 NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
+
