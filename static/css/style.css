@@ -1,0 +1,7 @@
+
+.month-item:hover {
+    cursor: pointer;
+}
+#currentPoints {
+    font-size: 24px; /* フォントサイズを 24px に設定 */
+}

@@ -1,0 +1,27 @@
+# Compiled Object files, Static and Dynamic libs (Shared Objects)
+*.o
+*.a
+*.so
+
+# Folders
+_obj
+_test
+
+# Architecture specific extensions/prefixes
+*.[568vq]
+
+# Compiled Go binary files
+*.exe
+*.test
+*.prof
+
+# Log files
+*.log
+log.txt
+
+# Binaries for programs and plugins
+*.out
+
+# Ignore vendor directory
+vendor/
+.env
