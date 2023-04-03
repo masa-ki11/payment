@@ -18,7 +18,7 @@ document.getElementById("login-form").addEventListener("submit", async (event) =
         // JWT トークンを保存
         localStorage.setItem("jwt", data.jwt);
         // ログイン後の画面にリダイレクト
-        window.location.href = "/"; // あなたのログイン後のページに変更してください。
+        window.location.href = "/";
     } else {
         // エラーメッセージを表示
         const error = await response.json();

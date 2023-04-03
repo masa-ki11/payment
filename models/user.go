@@ -30,6 +30,7 @@ type User struct {
 	Email     string `json:"email" gorm:"unique"`
 	Password  []byte `json:"-"`
 	Admin    bool
+	DeleteFlag    bool `gorm:"column:delete_flag"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }

@@ -56,8 +56,8 @@ func Forgot(c *gin.Context) {
 	sendFrom := fmt.Sprintf("From: %s\n", from)
 	subject := fmt.Sprintf("Subject: %s\n", "Password Reset")
 	mime := "MIME-version: 1.0;\nContent-Type: text/html; charset=\"UTF-8\";\n\n"
-	// Vue.jsのアドレス
-	url := "point-management.azurewebsites.net/reset-password?token=" + token
+
+	url := "http://point-management.azurewebsites.net/reset-password?token=" + token
 	message := fmt.Sprintf("Click <a href=\"%s\">here</a> to reset password!", url)
 	auth := smtp.PlainAuth("", from, password, "smtp.gmail.com")
 	sendErr := smtp.SendMail(

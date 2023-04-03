@@ -19,12 +19,13 @@ func Setup(router *gin.Engine) {
     router.POST("/use-points", controllers.UsePoints)
     router.GET("/user-history", controllers.GetHistory)
     router.GET("/get-points", controllers.GetPoint)
+    router.POST("/delete-user", controllers.DeleteUser)
 
     router.GET("/user", middleware.AdminMiddleware(), func(c *gin.Context) {
         // 現在のユーザー情報を取得
         user, err := controllers.GetCurrentUser(c)
         if err != nil {
-            // エラー処理を行うか、デフォルト値を設定します
+
         }
         // 現在のユーザー情報をコンテキストに保存
         c.Set("currentUser", user)
@@ -34,7 +35,7 @@ func Setup(router *gin.Engine) {
         // 現在のユーザー情報を取得
         user, err := controllers.GetCurrentUser(c)
         if err != nil {
-            // エラー処理を行うか、デフォルト値を設定します
+
         }
         // 現在のユーザー情報をコンテキストに保存
         c.Set("currentUser", user)
@@ -44,7 +45,7 @@ func Setup(router *gin.Engine) {
 	router.GET("/", AuthRequired, func(c *gin.Context) {
         user, err := controllers.GetCurrentUser(c)
         if err != nil {
-            // エラー処理を行うか、デフォルト値を設定します
+
         }
         c.HTML(200, "home.html", gin.H{
             "admin": user.Admin,
@@ -54,7 +55,7 @@ func Setup(router *gin.Engine) {
     router.GET("/history", AuthRequired, func(c *gin.Context) {
         user, err := controllers.GetCurrentUser(c)
         if err != nil {
-            // エラー処理を行うか、デフォルト値を設定します
+
         }
         c.HTML(200, "history.html", gin.H{
             "admin": user.Admin,

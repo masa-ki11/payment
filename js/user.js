@@ -1,4 +1,4 @@
-// カレントユーザーの ID を取得（適切な方法で取得してください）
+// カレントユーザーの ID を取得
 const userId = $("#user-id").data("user-id");
 
 fetch(`/get-points?user_id=${userId}`)

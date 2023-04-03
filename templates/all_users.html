@@ -25,13 +25,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="/">home</a>
+                        <a class="nav-link" href="/">ホーム</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/history">Earnings History</a>
+                        <a class="nav-link" href="/history">履歴</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/logout">Logout</a>
+                        <a class="nav-link" href="/logout">ログアウト</a>
                     </li>
                     {{if .admin}}
                         <li class="nav-item">
@@ -48,7 +48,7 @@
             <div class="col-12">
                 <div class="float-end">
                     <input type="number" class="form-control" id="add-points" placeholder="Enter points to add">
-                    <button class="btn btn-add-points btn-primary">Add Points</button>
+                    <button class="btn btn-add-points btn-primary">ポイント追加</button>
                 </div>
             </div>
         </div>
@@ -57,9 +57,10 @@
                 <tr>
                     <th class="text-center align-middle"><input type="checkbox" name="select-all" onclick="toggleSelectAll(this);"></th>
                     <th class="text-center align-middle">ID</th>
-                    <th class="text-center align-middle">Name</th>
-                    <th class="text-center align-middle">Point</th>
-                    <th class="text-center align-middle">Actions</th>
+                    <th class="text-center align-middle">名前</th>
+                    <th class="text-center align-middle">ポイント</th>
+                    <th class="text-center align-middle">詳細</th>
+                    <th class="text-center align-middle">削除</th>
                 </tr>
             </thead>
             <tbody>
@@ -70,7 +71,10 @@
                         <td class="text-center align-middle">{{.Name}}</td>
                         <td class="text-center align-middle point">{{.Point}}</td>
                         <td class="text-center align-middle">
-                            <a href="/user?id={{.ID}}" class="btn btn-primary">View Details</a>
+                            <a href="/user?id={{.ID}}" class="btn btn-primary">詳細</a>
+                        </td>
+                        <td class="text-center align-middle">
+                            <button data-user-id="{{.ID}}" class="btn btn-delete-user btn-danger">削除</button>
                         </td>
                     </tr>
                 {{end}}
@@ -78,5 +82,6 @@
         </table>
     </div>
     <script src="/js/add-points.js" type="module"></script>
+    <script src="/js/delete-user.js" type="module"></script>
 </body>
 </html>

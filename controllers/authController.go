@@ -62,10 +62,10 @@ func Login(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
 		return
 	}
-	db.Where("email = ?", data["email"]).First(&user)
+	db.Where("email = ? AND delete_flag = ?", data["email"], false).First(&user)
 	err = bcrypt.CompareHashAndPassword(user.Password, []byte(data["password"]))
 	if err != nil {
-		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Invalid email or password"})
+		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "パスワードが違うか利用許可されていません"})
 		return
 	}
 

@@ -28,6 +28,7 @@ func GetAllUsers(c *gin.Context) {
     db.Table("users").
         Select("users.*, points.point").
         Joins("left join points on users.id = points.user_id").
+        Where("users.delete_flag = 0").
         Scan(&usersWithPoints)
 
     // コンテキストから現在のユーザー情報を取得
@@ -257,3 +258,40 @@ func GetPoint(c *gin.Context) {
     c.JSON(http.StatusOK, point)
 }
 
+func DeleteUser(c *gin.Context) {
+    // リクエストからuser_idを取得
+    userId := c.PostForm("user-id")
+
+    // user_idが不正な場合、エラーレスポンスを返す
+    if userId == "" {
+        c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user ID"})
+        return
+    }
+
+    // データベースで対応するユーザーのdelete_flagをtrueに設定
+    db, err := database.Connect()
+    if err != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
+        return
+    }
+
+    var user models.User
+    if err := db.Where("id = ?", userId).First(&user).Error; err != nil {
+        if err == gorm.ErrRecordNotFound {
+            c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
+        } else {
+            c.JSON(http.StatusInternalServerError, gin.H{"error": "Error fetching user"})
+        }
+        return
+    }
+
+    user.DeleteFlag = true
+    if err := db.Save(&user).Error; err != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{"error": "Error updating user"})
+        return
+    }
+
+    // 成功レスポンスを返す
+    c.JSON(http.StatusOK, gin.H{"status": "User deleted", "message": "ユーザーが削除されました"})
+
+}
