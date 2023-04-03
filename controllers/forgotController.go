@@ -57,7 +57,7 @@ func Forgot(c *gin.Context) {
 	subject := fmt.Sprintf("Subject: %s\n", "Password Reset")
 	mime := "MIME-version: 1.0;\nContent-Type: text/html; charset=\"UTF-8\";\n\n"
 
-	url := "https://wallet-app.azurewebsites.net/reset-password?token=" + token
+	url := "https://go-wallet-app.azurewebsites.net/reset-password?token=" + token
 	message := fmt.Sprintf("Click <a href=\"%s\">here</a> to reset password!", url)
 	auth := smtp.PlainAuth("", from, password, "smtp.alpha-prm.jp")
 	sendErr := smtp.SendMail(
@@ -81,7 +81,7 @@ func Forgot(c *gin.Context) {
 
 }
 
-// ランダム文字列を返す関数
+// ランダム文字列を返す
 func RandStringRunes(n int) string {
 	var lettersRunes = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
 	b := make([]rune, n)
@@ -94,13 +94,13 @@ func RandStringRunes(n int) string {
 func Reset(c *gin.Context) {
 	var data map[string]string
 
-	// リクエストデータをパースする
+	// リクエストデータをパース
 	if err := c.ShouldBindJSON(&data); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	// パスワードチェック
+	// チェック
 	if data["password"] != data["password_confirm"] {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "Passwords do not match!",
