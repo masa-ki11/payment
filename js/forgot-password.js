@@ -12,7 +12,13 @@ document.getElementById('forgotForm').addEventListener('submit', async (e) => {
     });
 
     if (response.ok) {
-        alert('パスワードリセットメールが送信されました。');
+        // メール送信用
+        // alert('パスワードリセットメールが送信されました。');
+
+        // メール送信不可の代替案
+        const data = await response.json();
+        const resetUrl = data.resetUrl;
+        window.location.href = resetUrl;
     } else {
         const errorData = await response.json();
         alert(`エラー: ${errorData.error}`);

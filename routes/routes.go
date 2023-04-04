@@ -71,9 +71,17 @@ func Setup(router *gin.Engine) {
 	router.GET("/forgot-password", func(c *gin.Context) {
         c.HTML(200, "forgot-password.html", nil)
     })
+    // メール送信不可の代替案
 	router.GET("/reset-password", func(c *gin.Context) {
-        c.HTML(200, "reset-password.html", nil)
+        token := c.Query("token")
+        c.HTML(http.StatusOK, "reset-password.html", gin.H{
+            "Token": token,
+        })
     })
+    // メール送信用
+    // router.GET("/reset-password", func(c *gin.Context) {
+    //     c.HTML(200, "reset-password.html", nil)
+    // })
 
 }
 

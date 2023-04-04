@@ -1,10 +1,10 @@
 package controllers
 
 import (
-	"os"
+	// "os"
 	"math/rand"
 	"net/http"
-	"net/smtp"
+	// "net/smtp"
 	"log"
 	// "time"
 	"fmt"
@@ -47,38 +47,45 @@ func Forgot(c *gin.Context) {
 	// DBに保存
 	db.Create(&passwordReset)
 
-	// SMTPメール送信
-	from := os.Getenv("MAIL_FROM")
-	password := os.Getenv("MAIL_PASSWORD")
-	to := []string{
-		data["email"],
-	}
-	sendFrom := fmt.Sprintf("From: %s\n", from)
-	subject := fmt.Sprintf("Subject: %s\n", "Password Reset")
-	mime := "MIME-version: 1.0;\nContent-Type: text/html; charset=\"UTF-8\";\n\n"
+	 // メール送信用
+	// // SMTPメール送信
+	// from := os.Getenv("MAIL_FROM")
+	// password := os.Getenv("MAIL_PASSWORD")
+	// to := []string{
+	// 	data["email"],
+	// }
+	// sendFrom := fmt.Sprintf("From: %s\n", from)
+	// subject := fmt.Sprintf("Subject: %s\n", "Password Reset")
+	// mime := "MIME-version: 1.0;\nContent-Type: text/html; charset=\"UTF-8\";\n\n"
 
-	url := "https://go-wallet-app.azurewebsites.net/reset-password?token=" + token
-	message := fmt.Sprintf("Click <a href=\"%s\">here</a> to reset password!", url)
-	auth := smtp.PlainAuth("", from, password, "smtp.alpha-prm.jp")
-	sendErr := smtp.SendMail(
-		"smtp.alpha-prm.jp:587",
-		auth,
-		from,
-		to,
-		[]byte(sendFrom+subject+mime+message),
-	)
+	// url := "https://go-wallet-app.azurewebsites.net/reset-password?token=" + token
+	// message := fmt.Sprintf("Click <a href=\"%s\">here</a> to reset password!", url)
+	// auth := smtp.PlainAuth("", from, password, "smtp.alpha-prm.jp")
+	// sendErr := smtp.SendMail(
+	// 	"smtp.alpha-prm.jp:587",
+	// 	auth,
+	// 	from,
+	// 	to,
+	// 	[]byte(sendFrom+subject+mime+message),
+	// )
 
-	if sendErr != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"error": sendErr.Error(),
-		})
-		return
-	}
+	// if sendErr != nil {
+	// 	c.JSON(http.StatusInternalServerError, gin.H{
+	// 		"error": sendErr.Error(),
+	// 	})
+	// 	return
+	// }
 
+	// c.JSON(http.StatusOK, gin.H{
+	// 	"message": "SUCCESS",
+	// })
+
+
+	// メール送信不可の代替案
+	url := "/reset-password?token=" + token
 	c.JSON(http.StatusOK, gin.H{
-		"message": "SUCCESS",
+		"resetUrl": url,
 	})
-
 }
 
 // ランダム文字列を返す
