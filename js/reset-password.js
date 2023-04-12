@@ -14,7 +14,7 @@ document.getElementById("resetForm").addEventListener("submit", async (e) => {
     });
 
     if (response.ok) {
-        alert("パスワードがリセットされました。");
+        alert("パスワードが変更されました。");
         window.location.href = "/login";
     } else {
         const errorData = await response.json();

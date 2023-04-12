@@ -36,7 +36,11 @@ func Forgot(c *gin.Context) {
 		c.Abort()
 		return
 	}
-
+	if user.Admin {
+		c.JSON(http.StatusForbidden, gin.H{"error": "管理者はパスワード変更できません。管理者にお問い合わせください。"})
+		c.Abort()
+		return
+	}
 
 	token := RandStringRunes(12)
 	passwordReset := models.PasswordReset{
