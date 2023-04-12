@@ -25,3 +25,4 @@ log.txt
 # Ignore vendor directory
 vendor/
 .env
+go.mod
