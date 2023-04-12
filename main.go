@@ -4,7 +4,7 @@ import (
 	// "fmt"
 	// "payment/database"
 	"payment/routes"
-
+	"time"
 	// "net/http"
 	"github.com/gin-gonic/gin"
 	// "github.com/golang-migrate/migrate"
@@ -12,6 +12,12 @@ import (
 
 func main() {
 
+		// タイムゾーンを JST (日本標準時) に設定する
+		location, err := time.LoadLocation("Asia/Tokyo")
+		if err != nil {
+			panic(err)
+		}
+		time.Local = location
 	// サーバーをセットアップする
 	r := gin.Default()
 

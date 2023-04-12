@@ -23,7 +23,7 @@ func Register(c *gin.Context) {
 	}
 
 	if data["password"] != data["password_confirm"] {
-		c.JSON(http.StatusBadRequest, gin.H{"message": "Passwords do not match!"})
+		c.JSON(http.StatusBadRequest, gin.H{"message":  "パスワードが違います。"})
 		return
 	}
 	password, err := bcrypt.GenerateFromPassword([]byte(data["password"]), 14)
@@ -41,11 +41,11 @@ func Register(c *gin.Context) {
 	fmt.Println("Saving user:", user)
 	err = models.SaveUser(&user)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal  error"})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": "User created successfully", "user": user})
+	c.JSON(http.StatusOK, gin.H{"message": "登録しました。ログインしてください。", "user": user})
 }
 
 func Login(c *gin.Context) {

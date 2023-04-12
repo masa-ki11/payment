@@ -25,9 +25,9 @@ function addPoints() {
         body: requestBody
     }).then(function(response) {
         if (response.ok) {
-            alert("Points added successfully");
+            alert("ポイントを付与しました");
         } else {
-            alert("Failed to add points");
+            alert("errors");
         }
         location.reload(); // ページをリロードする
     });

@@ -110,7 +110,7 @@ func Reset(c *gin.Context) {
 	// チェック
 	if data["password"] != data["password_confirm"] {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"message": "Passwords do not match!",
+			"message": "パスワードが違います。",
 		})
 		return
 	}

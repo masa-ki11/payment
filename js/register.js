@@ -14,7 +14,7 @@ $("#register-form").submit(function(event) {
         data: JSON.stringify(formData),
         contentType: "application/json",
         success: function(response) {
-        alert("User created successfully");
+        alert("登録しました。ログインしてください。");
         window.location.href = "/login"; // ログインページへリダイレクト
     },
     error: function(response) {

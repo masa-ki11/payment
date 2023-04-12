@@ -5,3 +5,17 @@
 #currentPoints {
     font-size: 24px; /* フォントサイズを 24px に設定 */
 }
+@media (max-width: 576px) {
+    .small-on-mobile th,
+    .small-on-mobile td {
+        font-size: 0.8rem;
+    }
+    .small-on-mobile .btn,
+    .small-on-mobile .form-control {
+        font-size: 0.7rem;
+        padding: 4px 6px;
+    }
+    .small-on-mobile .form-control {
+        height: auto;
+    }
+}
