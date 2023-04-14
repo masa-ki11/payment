@@ -8,10 +8,10 @@ import (
 	"log"
 	// "time"
 	"fmt"
+	"github.com/gin-gonic/gin"
+	"golang.org/x/crypto/bcrypt"
 	"payment/database"
 	"payment/models"
-	"golang.org/x/crypto/bcrypt"
-	"github.com/gin-gonic/gin"
 )
 
 func Forgot(c *gin.Context) {
@@ -37,7 +37,7 @@ func Forgot(c *gin.Context) {
 		return
 	}
 	if user.Admin {
-		c.JSON(http.StatusForbidden, gin.H{"error": "管理者はパスワード変更できません。管理者にお問い合わせください。"})
+		c.JSON(http.StatusForbidden, gin.H{"error": "管理者はパスワード変更できません。\nシステム担当者にお問い合わせください。"})
 		c.Abort()
 		return
 	}
@@ -51,7 +51,7 @@ func Forgot(c *gin.Context) {
 	// DBに保存
 	db.Create(&passwordReset)
 
-	 // メール送信用
+	// メール送信用
 	// // SMTPメール送信
 	// from := os.Getenv("MAIL_FROM")
 	// password := os.Getenv("MAIL_PASSWORD")
@@ -83,7 +83,6 @@ func Forgot(c *gin.Context) {
 	// c.JSON(http.StatusOK, gin.H{
 	// 	"message": "SUCCESS",
 	// })
-
 
 	// メール送信不可の代替案
 	url := "/reset-password?token=" + token
@@ -122,10 +121,10 @@ func Reset(c *gin.Context) {
 	var passwordReset = models.PasswordReset{}
 	// JWT Tokenからデータを取得
 	db, err := database.Connect()
-    if err != nil {
-        c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
-        return
-    }
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
+		return
+	}
 	err = db.Where("token = ?", data["token"]).Last(&passwordReset).Error
 	fmt.Println(data["token"])
 	if err != nil {
